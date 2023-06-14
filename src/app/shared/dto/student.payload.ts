@@ -1,5 +1,5 @@
-import {PersonPayload} from "./person.payload";
-import {ProfessorPayload} from "./professor.payload";
+import { PersonPayload } from './person.payload';
+import { ProfessorPayload } from './professor.payload';
 
 export interface Department {
   id: bigint;

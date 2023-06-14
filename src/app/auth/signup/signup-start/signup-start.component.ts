@@ -1,24 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup-start',
   templateUrl: './signup-start.component.html',
-  styleUrls: ['./signup-start.component.css']
+  styleUrls: ['./signup-start.component.css'],
 })
 export class SignupStartComponent implements OnInit {
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
-  constructor(private router: Router,
-              private route: ActivatedRoute) { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  onEmployee() {
+    this.router.navigate(['student'], { relativeTo: this.route });
   }
 
-  onStudent() {
-    this.router.navigate(['student'], {relativeTo: this.route});
-  }
-
-  onProfessor() {
-    this.router.navigate(['professor'], {relativeTo: this.route});
+  onCustomer() {
+    this.router.navigate(['professor'], { relativeTo: this.route });
   }
 }

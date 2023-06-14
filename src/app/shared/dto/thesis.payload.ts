@@ -1,13 +1,11 @@
-import {Student} from "../model/student.model";
-import {ProgressStatus, VisibilityStatus} from "../model/progress-status.model";
+import { Student } from '../model/student.model';
+import { ProgressStatus, VisibilityStatus } from '../model/progress-status.model';
 
 export interface BoardFunction {
-  boardFunctionId: { professorId: number, boardId: number };
+  boardFunctionId: { professorId: number; boardId: number };
   function: string;
   joinDate: Date;
-
 }
-
 
 export interface Board {
   boardId: bigint;

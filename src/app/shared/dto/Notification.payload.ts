@@ -1,4 +1,4 @@
-import {UserProfilePayload} from "./userProfile.payload";
+import { UserProfilePayload } from './userProfile.payload';
 
 export interface NotificationPayload {
   notificationId: bigint;
@@ -8,5 +8,4 @@ export interface NotificationPayload {
   isRead: boolean;
   sender: UserProfilePayload;
   user: UserProfilePayload;
-
 }

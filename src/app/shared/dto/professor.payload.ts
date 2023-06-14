@@ -1,5 +1,5 @@
-import {PersonPayload} from "./person.payload";
-import {AcademicRank, Title} from "../model/professor.model";
+import { PersonPayload } from './person.payload';
+import { AcademicRank, Title } from '../model/professor.model';
 
 export class ProfessorPayload extends PersonPayload {
   academicRank: AcademicRank;
@@ -8,9 +8,7 @@ export class ProfessorPayload extends PersonPayload {
   cabinet: string;
   phone: string;
 
-
   toString(): string {
     return this.title.name + ' ' + super.name + ' ' + super.surname;
   }
-
 }
