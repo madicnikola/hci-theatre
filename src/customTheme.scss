@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
 @include mat.core();
 
@@ -9,8 +9,8 @@ $light-theme: mat.define-light-theme(
   (
     color: (
       primary: $light-primary,
-      accent: $light-accent,
-    ),
+      accent: $light-accent
+    )
   )
 );
 
@@ -21,8 +21,8 @@ $dark-theme: mat.define-dark-theme(
   (
     color: (
       primary: $dark-primary,
-      accent: $dark-accent,
-    ),
+      accent: $dark-accent
+    )
   )
 );
 

@@ -12,8 +12,8 @@ const authRoutes: Routes = [
     path: 'signup',
     children: [
       { path: '', component: SignupStartComponent },
-      { path: 'student', component: SignupEmployeeComponent },
-      { path: 'professor', component: SignupCustomerComponent },
+      { path: 'employee', component: SignupEmployeeComponent },
+      { path: 'customer', component: SignupCustomerComponent },
     ],
   },
   { path: 'signin', component: SigninComponent },

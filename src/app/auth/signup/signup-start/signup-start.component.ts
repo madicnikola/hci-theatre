@@ -12,10 +12,10 @@ export class SignupStartComponent implements OnInit {
   ngOnInit(): void {}
 
   onEmployee() {
-    this.router.navigate(['student'], { relativeTo: this.route });
+    this.router.navigate(['employee'], { relativeTo: this.route });
   }
 
   onCustomer() {
-    this.router.navigate(['professor'], { relativeTo: this.route });
+    this.router.navigate(['customer'], { relativeTo: this.route });
   }
 }

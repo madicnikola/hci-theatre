@@ -1,20 +1,20 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form [formGroup]="studentSignupForm" (ngSubmit)="onSignup()">
+      <form [formGroup]="employeeSignupForm" (ngSubmit)="onSignup()">
         <mat-tab-group [(selectedIndex)]="selectedIndex">
-          <mat-tab label="Osnovni podaci">
+          <mat-tab label="Basic info">
             <mat-form-field class="full-width" appearance="fill">
               <mat-label>Name</mat-label>
               <input matInput placeholder="" value="" formControlName="name" />
-              <mat-error *ngIf="studentSignupForm.controls['name'].hasError('required')">
+              <mat-error *ngIf="employeeSignupForm.controls['name'].hasError('required')">
                 Name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width" appearance="fill">
               <mat-label>Surname</mat-label>
               <input matInput placeholder="" value="" formControlName="surname" />
-              <mat-error *ngIf="studentSignupForm.controls['surname'].hasError('required')">
+              <mat-error *ngIf="employeeSignupForm.controls['surname'].hasError('required')">
                 Surname is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -23,7 +23,7 @@
               <input matInput id="birthDate" [matDatepicker]="picker" formControlName="birthDate" />
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
-              <mat-error *ngIf="studentSignupForm.controls['birthDate'].hasError('required')">
+              <mat-error *ngIf="employeeSignupForm.controls['birthDate'].hasError('required')">
                 Birthdate is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -46,27 +46,27 @@
               <input type="email" matInput placeholder="" value="" formControlName="email" />
               <mat-error
                 *ngIf="
-                  studentSignupForm.controls['email'].hasError('email') &&
-                  !studentSignupForm.controls['email'].hasError('required')
+                  employeeSignupForm.controls['email'].hasError('email') &&
+                  !employeeSignupForm.controls['email'].hasError('required')
                 "
               >
                 Please enter a valid email address
               </mat-error>
-              <mat-error *ngIf="studentSignupForm.controls['email'].hasError('required')">
+              <mat-error *ngIf="employeeSignupForm.controls['email'].hasError('required')">
                 Email is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width" appearance="fill">
               <mat-label>username</mat-label>
               <input matInput placeholder="" value="" formControlName="username" />
-              <mat-error *ngIf="studentSignupForm.controls['name'].hasError('required')">
+              <mat-error *ngIf="employeeSignupForm.controls['name'].hasError('required')">
                 Name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width" appearance="fill">
               <mat-label>password</mat-label>
               <input type="password" matInput placeholder="" value="" formControlName="password" />
-              <mat-error *ngIf="studentSignupForm.controls['name'].hasError('required')">
+              <mat-error *ngIf="employeeSignupForm.controls['name'].hasError('required')">
                 Name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -92,16 +92,16 @@
             </div>
           </mat-tab>
 
-          <mat-tab label="Student">
+          <mat-tab label="Address">
             <mat-form-field class="full-width" appearance="fill">
-              <mat-label>Broj Indeksa</mat-label>
+              <mat-label>Street & No</mat-label>
               <input matInput placeholder="" value="" formControlName="index" />
-              <mat-error *ngIf="studentSignupForm.controls['name'].hasError('required')">
+              <mat-error *ngIf="employeeSignupForm.controls['name'].hasError('required')">
                 Name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width" appearance="fill">
-              <mat-label>Stepen Studija</mat-label>
+              <mat-label>Flat</mat-label>
               <input
                 type="text"
                 placeholder="Izaberi"
@@ -119,14 +119,14 @@
                 </mat-option>
               </mat-autocomplete>
               <mat-error *ngFor="let validation of validation_msgs.degreeOfStudyControl">
-                <div *ngIf="studentSignupForm.controls['degreeOfStudy'].hasError(validation.type)">
+                <div *ngIf="employeeSignupForm.controls['degreeOfStudy'].hasError(validation.type)">
                   {{ validation.message }}
                 </div>
               </mat-error>
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="fill">
-              <mat-label>Smer</mat-label>
+              <mat-label>Full Address </mat-label>
               <input
                 type="text"
                 placeholder="Izaberi"
@@ -144,7 +144,7 @@
                 </mat-option>
               </mat-autocomplete>
               <mat-error *ngFor="let validation of validation_msgs.departmentControl">
-                <div *ngIf="studentSignupForm.controls['department'].hasError(validation.type)">
+                <div *ngIf="employeeSignupForm.controls['department'].hasError(validation.type)">
                   {{ validation.message }}
                 </div>
               </mat-error>
@@ -155,7 +155,7 @@
                 mat-raised-button
                 style="margin: 1px"
                 type="submit"
-                [disabled]="!studentSignupForm.valid"
+                [disabled]="!employeeSignupForm.valid"
               >
                 Register
               </button>

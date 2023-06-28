@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
 
 @Component({
-  selector: 'app-signup-professor',
+  selector: 'app-signup-customer',
   templateUrl: './signup-customer.component.html',
   styleUrls: ['./signup-customer.component.css'],
   providers: [
@@ -72,18 +72,17 @@ export class SignupCustomerComponent implements OnInit {
     const data = {
       ...this.signUpCustomerForm.get('formArray.0').value,
       ...this.signUpCustomerForm.get('formArray.1').value,
-      ...this.signUpCustomerForm.get('formArray.2').value,
     };
     this.authService.register(data).subscribe(
       (data) => {
-        this.router.navigate(['/signin']);
-        this.matDialog.open(DialogComponent, {
-          data: {
-            title: 'Obaveštenje',
-            message:
-              'Poslat Vam je email za verifikaciju naloga! Potrebno je da potvrdite email adresu kako biste se uspešno registrovali.',
-          },
-        });
+        this.router.navigate(['']);
+        // this.matDialog.open(DialogComponent, {
+        //   data: {
+        //     title: 'Obaveštenje',
+        //     message:
+        //       'Poslat Vam je email za verifikaciju naloga! Potrebno je da potvrdite email adresu kako biste se uspešno registrovali.',
+        //   },
+        // });
       },
       (error) => console.log('Registration failed. Please try again')
     );

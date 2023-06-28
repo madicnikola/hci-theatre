@@ -1,52 +1,62 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { EventEmitter, Injectable, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, lastValueFrom, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { LoginRequestPayload } from '../shared/dto/login-request.payload';
 import { AuthenticationResponse } from '../shared/dto/authentication-response.payload';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { RegisterRequestPayload } from '../shared/dto/register-request.payload';
 import { environment } from '../../environments/environment';
+import { User } from '../shared/model/User';
+import { PlayService } from '../core/play.service';
 
 const loginUrl = `${environment.apiUrl}/auth/login`;
 const signupUrl = `${environment.apiUrl}/auth/signup`;
 const refreshTokenUrl = `${environment.apiUrl}/auth/refresh/token`;
 
 @Injectable()
-export class AuthService {
-  token: string;
-  private userSubject: BehaviorSubject<AuthenticationResponse>;
-  public user: Observable<AuthenticationResponse>;
-  refreshTokenPayload = {
-    refreshToken: this.getRefreshToken(),
-    username: this.getUserName(),
-  };
+export class AuthService implements OnInit {
+  token: boolean = false;
+  users: User[];
+  private userSubject: BehaviorSubject<User>;
+  public user: Observable<User>;
 
   @Output() loggedIn: EventEmitter<boolean> = new EventEmitter();
   @Output() username: EventEmitter<string> = new EventEmitter();
 
-  constructor(private router: Router, private client: HttpClient) {
-    this.token = JSON.parse(localStorage.getItem('token') as string);
-    this.userSubject = new BehaviorSubject<AuthenticationResponse>(
-      JSON.parse(localStorage.getItem('user') as string)
-    );
+  constructor(
+    private router: Router,
+    private client: HttpClient,
+    private playService: PlayService
+  ) {
+    this.token = Boolean(localStorage.getItem('token'));
+    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
     this.user = this.userSubject.asObservable();
+    this.users = this.playService.getUsers();
   }
 
-  login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
-    return of(true);
+  ngOnInit(): void {}
+
+  login(loginPayload: LoginRequestPayload): Observable<LoginRequestPayload> {
+    const user = this.users.find((u) => u.username === loginPayload.username) ?? this.users[0];
+    localStorage.setItem('user', JSON.stringify(user));
+    this.token = true;
+    this.loggedIn.emit(true);
+    this.userSubject.next(user);
+    localStorage.setItem('token', String(this.token));
+    this.router.navigate(['']);
+    return of(loginPayload);
   }
 
   register(registerRequestPayload: RegisterRequestPayload): Observable<any> {
-    return this.client.post(signupUrl, registerRequestPayload, { responseType: 'text' });
+    return of(true);
   }
 
-  public get userValue(): AuthenticationResponse {
+  public get userValue(): User {
     return this.userSubject.value;
   }
 
   logout() {
-    this.token = null;
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('username');
@@ -54,11 +64,12 @@ export class AuthService {
     localStorage.removeItem('expiresAt');
     this.userSubject.next(null);
     this.user = null;
+    this.token = false;
     this.router.navigate(['/signin']);
   }
 
-  isAuthenticated() {
-    return this.token != null;
+  isAuthenticated(): boolean {
+    return this.token;
   }
 
   isAuthorized(roles: string[]) {
@@ -71,31 +82,7 @@ export class AuthService {
     return false;
   }
 
-  getToken() {
-    return this.token;
-  }
-
-  getJwtToken() {
-    return JSON.parse(localStorage.getItem('token'));
-  }
-
-  refreshToken() {
-    return this.client.post<AuthenticationResponse>(refreshTokenUrl, this.refreshTokenPayload).pipe(
-      tap((response) => {
-        localStorage.removeItem('authenticationToken');
-        localStorage.removeItem('expiresAt');
-
-        localStorage.setItem('authenticationToken', JSON.stringify(response.authenticationToken));
-        localStorage.setItem('expiresAt', JSON.stringify(response.expiresAt));
-      })
-    );
-  }
-
   getUserName() {
     return JSON.parse(localStorage.getItem('username'));
-  }
-
-  getRefreshToken() {
-    return JSON.parse(localStorage.getItem('refreshToken'));
   }
 }

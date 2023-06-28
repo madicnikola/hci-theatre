@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { DataService } from '../../shared/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private dataService: DataService, public authService: AuthService) {}
+  constructor(public authService: AuthService) {}
 
-  onLogout() {}
+  onLogout() {
+    this.authService.logout();
+  }
 
   // fetchStudents(param: string) {
   //   let uri;

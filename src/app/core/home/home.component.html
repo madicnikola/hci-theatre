@@ -1,0 +1,23 @@
+<a *ngIf="isEmployee()" routerLink="/add-new-show">Add new show</a>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      Repertoar
+    </tr>
+    <tr>
+      <th>Name</th>
+      <!--        <th (click)="onSortByNameClicked()">Naziv</th>-->
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let play of plays" (click)="onPlayClicked(play.id)">
+      <td><img [src]="play.image" width="300" height="350" /></td>
+      <td>{{ play.name }}</td>
+      <td>{{ play.description }}</td>
+      <div *ngIf="isEmployee()" class="cancel">
+        <button class="btn btn-danger" (click)="onDeleteClicked($event, play)">Delete</button>
+      </div>
+    </tr>
+  </tbody>
+</table>

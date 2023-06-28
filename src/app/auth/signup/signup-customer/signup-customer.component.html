@@ -50,19 +50,18 @@
               <mat-error> Name is <strong>required</strong> </mat-error>
             </mat-form-field>
             <div style="display: flex; flex-direction: row-reverse">
-              <button mat-raised-button class="btn" matStepperNext type="button">Dalje</button>
+              <button
+                mat-raised-button
+                class="btn"
+                style="margin: 1px"
+                type="submit"
+                [disabled]="!signUpCustomerForm.valid"
+              >
+                Register
+              </button>
               <button mat-raised-button class="btn" matStepperPrevious type="button">Nazad</button>
             </div>
           </mat-step>
-          <button
-            mat-raised-button
-            class="btn"
-            style="margin: 1px"
-            type="submit"
-            [disabled]="!signUpCustomerForm.valid"
-          >
-            Register
-          </button>
           <button
             mat-raised-button
             class="btn"

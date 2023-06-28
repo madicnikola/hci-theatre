@@ -9,12 +9,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShowHidePasswordComponent } from './show-hide-password/show-hide-password.component';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
-  declarations: [DropdownDirective, DialogComponent],
+  declarations: [DropdownDirective, DialogComponent, ShowHidePasswordComponent],
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     MatDialogModule,
     MatButtonModule,
@@ -22,6 +26,8 @@ import { FormsModule } from '@angular/forms';
     MatTooltipModule,
     MatCheckboxModule,
     FormsModule,
+    ReactiveFormsModule,
+    IonicModule,
   ],
   exports: [
     CommonModule,
@@ -30,6 +36,8 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     DropdownDirective,
     DialogComponent,
-  ],
+    FormsModule,
+    ReactiveFormsModule
+  ]
 })
 export class SharedModule {}
