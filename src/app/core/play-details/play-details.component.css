@@ -1,0 +1,41 @@
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-left: 100px;
+    margin-top: 20px;
+}
+
+.play-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+}
+
+.play-image img {
+    width: 400px;
+    height: 450px;
+    margin-bottom: 20px;
+}
+
+.play-description {
+    width: 900px;
+    margin-bottom: 30px;
+}
+
+.play-description p {
+    margin-bottom: 10px;
+}
+
+.play-description button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.play-description button:hover {
+    background-color: #0056b3;
+}

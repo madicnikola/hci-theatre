@@ -1,0 +1,13 @@
+<h2>{{ play.name }}</h2>
+
+<div class="play-details">
+  <div class="play-image">
+    <img [src]="play.image" width="300" height="350">
+  </div>
+  <div class="play-description">
+    <p>{{ play.description }}</p>
+    <p>Tickets left: {{ play.ticketsLeft }}</p>
+    <button (click)="buyTicket(play.id)">Buy Ticket</button>
+  </div>
+</div>
+

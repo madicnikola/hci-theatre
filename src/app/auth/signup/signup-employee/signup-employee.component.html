@@ -1,0 +1,177 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="employeeSignupForm" (ngSubmit)="onSignup()">
+        <mat-tab-group [(selectedIndex)]="selectedIndex">
+          <mat-tab label="Basic info">
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Name</mat-label>
+              <input matInput placeholder="" value="" formControlName="name" />
+              <mat-error *ngIf="employeeSignupForm.controls['name'].hasError('required')">
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Surname</mat-label>
+              <input matInput placeholder="" value="" formControlName="surname" />
+              <mat-error *ngIf="employeeSignupForm.controls['surname'].hasError('required')">
+                Surname is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Birthdate</mat-label>
+              <input matInput id="birthDate" [matDatepicker]="picker" formControlName="birthDate" />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="employeeSignupForm.controls['birthDate'].hasError('required')">
+                Birthdate is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <div style="display: flex; flex-direction: row-reverse">
+              <button
+                type="button"
+                class="btn"
+                mat-raised-button
+                style="margin: 1px"
+                (click)="nextStep()"
+              >
+                Dalje
+              </button>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="User profile">
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>email</mat-label>
+              <input type="email" matInput placeholder="" value="" formControlName="email" />
+              <mat-error
+                *ngIf="
+                  employeeSignupForm.controls['email'].hasError('email') &&
+                  !employeeSignupForm.controls['email'].hasError('required')
+                "
+              >
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="employeeSignupForm.controls['email'].hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>username</mat-label>
+              <input matInput placeholder="" value="" formControlName="username" />
+              <mat-error *ngIf="employeeSignupForm.controls['name'].hasError('required')">
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>password</mat-label>
+              <input type="password" matInput placeholder="" value="" formControlName="password" />
+              <mat-error *ngIf="employeeSignupForm.controls['name'].hasError('required')">
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <div style="display: flex; flex-direction: row-reverse">
+              <button
+                type="button"
+                class="btn"
+                mat-raised-button
+                style="margin: 1px"
+                (click)="nextStep()"
+              >
+                Dalje
+              </button>
+              <button
+                type="button"
+                class="btn"
+                mat-raised-button
+                style="margin: 1px"
+                (click)="previousStep()"
+              >
+                Nazad
+              </button>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Address">
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Street & No</mat-label>
+              <input matInput placeholder="" value="" formControlName="index" />
+              <mat-error *ngIf="employeeSignupForm.controls['name'].hasError('required')">
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Flat</mat-label>
+              <input
+                type="text"
+                placeholder="Izaberi"
+                aria-label="Stepen Studija"
+                formControlName="degreeOfStudy"
+                matInput
+                [matAutocomplete]="auto1"
+              />
+              <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+                <mat-option
+                  *ngFor="let optionDegree of filteredOptionsDegree | async"
+                  [value]="optionDegree"
+                >
+                  {{ optionDegree }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngFor="let validation of validation_msgs.degreeOfStudyControl">
+                <div *ngIf="employeeSignupForm.controls['degreeOfStudy'].hasError(validation.type)">
+                  {{ validation.message }}
+                </div>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Full Address </mat-label>
+              <input
+                type="text"
+                placeholder="Izaberi"
+                aria-label="Smer"
+                formControlName="department"
+                matInput
+                [matAutocomplete]="auto2"
+              />
+              <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+                <mat-option
+                  *ngFor="let optionDepartment of filteredOptionsDepartment | async"
+                  [value]="optionDepartment"
+                >
+                  {{ optionDepartment }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngFor="let validation of validation_msgs.departmentControl">
+                <div *ngIf="employeeSignupForm.controls['department'].hasError(validation.type)">
+                  {{ validation.message }}
+                </div>
+              </mat-error>
+            </mat-form-field>
+            <div style="display: flex; flex-direction: row-reverse">
+              <button
+                class="btn"
+                mat-raised-button
+                style="margin: 1px"
+                type="submit"
+                [disabled]="!employeeSignupForm.valid"
+              >
+                Register
+              </button>
+              <button
+                type="button"
+                class="btn"
+                mat-raised-button
+                style="margin: 1px"
+                (click)="previousStep()"
+              >
+                Nazad
+              </button>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </form>
+    </div>
+  </div>
+</div>
