@@ -33,4 +33,7 @@ export class HomeComponent implements OnInit {
     this.playService.deletePlay(play.id);
     this.plays = this.playService.getPlays();
   }
+  onSortByNameClicked(){
+    
+  }
 }
