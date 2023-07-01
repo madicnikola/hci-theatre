@@ -92,61 +92,28 @@
             </div>
           </mat-tab>
 
-          <mat-tab label="Address">
+          <mat-tab label="Address & Contact">
             <mat-form-field class="full-width" appearance="fill">
               <mat-label>Street & No</mat-label>
-              <input matInput placeholder="" value="" formControlName="index" />
+              <input matInput placeholder="" value="" formControlName="address" />
               <mat-error *ngIf="employeeSignupForm.controls['name'].hasError('required')">
-                Name is <strong>required</strong>
+                Street&No is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width" appearance="fill">
-              <mat-label>Flat</mat-label>
-              <input
-                type="text"
-                placeholder="Izaberi"
-                aria-label="Stepen Studija"
-                formControlName="degreeOfStudy"
-                matInput
-                [matAutocomplete]="auto1"
-              />
-              <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
-                <mat-option
-                  *ngFor="let optionDegree of filteredOptionsDegree | async"
-                  [value]="optionDegree"
-                >
-                  {{ optionDegree }}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error *ngFor="let validation of validation_msgs.degreeOfStudyControl">
-                <div *ngIf="employeeSignupForm.controls['degreeOfStudy'].hasError(validation.type)">
+              <mat-label>Full Address</mat-label>
+              <input type="text" placeholder="" formControlName="fullAddress" matInput />
+              <mat-error *ngFor="let validation of validation_msgs.fullAddress">
+                <div *ngIf="employeeSignupForm.controls['fullAddress'].hasError(validation.type)">
                   {{ validation.message }}
                 </div>
               </mat-error>
             </mat-form-field>
-
             <mat-form-field class="full-width" appearance="fill">
-              <mat-label>Full Address </mat-label>
-              <input
-                type="text"
-                placeholder="Izaberi"
-                aria-label="Smer"
-                formControlName="department"
-                matInput
-                [matAutocomplete]="auto2"
-              />
-              <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
-                <mat-option
-                  *ngFor="let optionDepartment of filteredOptionsDepartment | async"
-                  [value]="optionDepartment"
-                >
-                  {{ optionDepartment }}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error *ngFor="let validation of validation_msgs.departmentControl">
-                <div *ngIf="employeeSignupForm.controls['department'].hasError(validation.type)">
-                  {{ validation.message }}
-                </div>
+              <mat-label>Phone Number</mat-label>
+              <input matInput placeholder="" value="" formControlName="phoneNumber" />
+              <mat-error *ngIf="employeeSignupForm.controls['phoneNumber'].hasError('required')">
+                Phone number is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <div style="display: flex; flex-direction: row-reverse">

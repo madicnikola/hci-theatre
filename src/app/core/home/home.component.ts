@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   isEmployee() {
-    return this.user.role === 'EMPLOYEE';
+    return this.user?.role === 'EMPLOYEE';
   }
 
   onDeleteClicked($event: MouseEvent, play: Play) {

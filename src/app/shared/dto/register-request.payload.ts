@@ -7,5 +7,9 @@ export interface RegisterRequestPayload {
   username: string;
   password: string;
 
+  address: string;
+  fullAddress: string;
+  phoneNumber: string;
+
   role: string;
 }

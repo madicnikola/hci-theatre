@@ -47,8 +47,8 @@ export class PlayService {
           password: 'admin',
           name: 'Nikola',
           surname: 'Madic',
-          address: 'Beogradska 1',
-          phoneNumber: '060/123789',
+          address: 'Gregorciceva 21',
+          phoneNumber: '+38160123789',
           role: 'EMPLOYEE'
         },
         {

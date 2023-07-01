@@ -3,16 +3,9 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { LoginRequestPayload } from '../shared/dto/login-request.payload';
-import { AuthenticationResponse } from '../shared/dto/authentication-response.payload';
-import { tap } from 'rxjs/operators';
 import { RegisterRequestPayload } from '../shared/dto/register-request.payload';
-import { environment } from '../../environments/environment';
 import { User } from '../shared/model/User';
 import { PlayService } from '../core/play.service';
-
-const loginUrl = `${environment.apiUrl}/auth/login`;
-const signupUrl = `${environment.apiUrl}/auth/signup`;
-const refreshTokenUrl = `${environment.apiUrl}/auth/refresh/token`;
 
 @Injectable()
 export class AuthService implements OnInit {
@@ -38,6 +31,7 @@ export class AuthService implements OnInit {
   ngOnInit(): void {}
 
   login(loginPayload: LoginRequestPayload): Observable<LoginRequestPayload> {
+    this.users = this.playService.getUsers();
     const user = this.users.find((u) => u.username === loginPayload.username) ?? this.users[0];
     localStorage.setItem('user', JSON.stringify(user));
     this.token = true;
@@ -48,8 +42,13 @@ export class AuthService implements OnInit {
     return of(loginPayload);
   }
 
-  register(registerRequestPayload: RegisterRequestPayload): Observable<any> {
-    return of(true);
+  register(registerRequestPayload: RegisterRequestPayload): Observable<LoginRequestPayload> {
+    const user = new User({ ...registerRequestPayload });
+    const users = JSON.parse(localStorage.getItem('users'));
+    users.push(user);
+    localStorage.setItem('users', JSON.stringify(users));
+
+    return of(user);
   }
 
   public get userValue(): User {

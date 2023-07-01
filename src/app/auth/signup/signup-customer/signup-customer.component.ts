@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth.service';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../../../shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-signup-customer',
@@ -13,32 +11,13 @@ import { DialogComponent } from '../../../shared/dialog/dialog.component';
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { displayDefaultIndicatorType: false },
-    },
-  ],
+      useValue: { displayDefaultIndicatorType: false }
+    }
+  ]
 })
 export class SignupCustomerComponent implements OnInit {
-  academicRankControl = new FormControl();
-  titleControl = new FormControl();
   isLinear = true;
   signUpCustomerForm: FormGroup;
-
-  validation_msgs = {
-    titleControl: [
-      {
-        type: 'invalidAutocompleteString',
-        message: 'Please click one of the autocomplete options.',
-      },
-      { type: 'required', message: 'required' },
-    ],
-    academicRankControl: [
-      {
-        type: 'invalidAutocompleteString',
-        message: 'Please click one of the autocomplete options.',
-      },
-      { type: 'required', message: 'required' },
-    ],
-  };
 
   get formArray(): AbstractControl | null {
     return this.signUpCustomerForm.get('formArray');
@@ -47,8 +26,7 @@ export class SignupCustomerComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router,
-    private matDialog: MatDialog
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -57,14 +35,19 @@ export class SignupCustomerComponent implements OnInit {
         this.formBuilder.group({
           name: ['', Validators.required],
           surname: ['', Validators.required],
-          birthDate: Date.now(),
+          birthDate: Date.now()
+        }),
+        this.formBuilder.group({
+          address: ['', [Validators.required]],
+          fullAddress: ['', Validators.required],
+          phoneNumber: ['', [Validators.required, Validators.minLength(4)]]
         }),
         this.formBuilder.group({
           email: ['', [Validators.required, Validators.email]],
           username: ['', Validators.required],
-          password: ['', [Validators.required, Validators.minLength(4)]],
-        }),
-      ]),
+          password: ['', [Validators.required, Validators.minLength(4)]]
+        })
+      ])
     });
   }
 
@@ -72,19 +55,14 @@ export class SignupCustomerComponent implements OnInit {
     const data = {
       ...this.signUpCustomerForm.get('formArray.0').value,
       ...this.signUpCustomerForm.get('formArray.1').value,
+      ...this.signUpCustomerForm.get('formArray.2').value
     };
-    this.authService.register(data).subscribe(
-      (data) => {
+    this.authService.register({ ...data, role: 'CUSTOMER' }).subscribe({
+      next: (user) => {
+        this.authService.login(user);
         this.router.navigate(['']);
-        // this.matDialog.open(DialogComponent, {
-        //   data: {
-        //     title: 'Obaveštenje',
-        //     message:
-        //       'Poslat Vam je email za verifikaciju naloga! Potrebno je da potvrdite email adresu kako biste se uspešno registrovali.',
-        //   },
-        // });
       },
-      (error) => console.log('Registration failed. Please try again')
-    );
+      error: (error) => console.log('Registration failed. Please try again')
+    });
   }
 }
