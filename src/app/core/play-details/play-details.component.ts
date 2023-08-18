@@ -10,12 +10,14 @@ import { PlayService } from '../play.service';
 })
 export class PlayDetailsComponent implements OnInit {
   play: Play = new Play();
+  ticketsAvailable = true;
 
   constructor(private route: ActivatedRoute, private playService: PlayService) {}
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id')!;
     this.play = this.playService.getPlayById(id);
+    this.checkTicketAvailability(); // Call this when the   component initializes
   }
 
   buyTicket(playId: number) {
@@ -34,5 +36,9 @@ export class PlayDetailsComponent implements OnInit {
         alert('No more tickets left for this play.');
       }
     }
+  }
+  checkTicketAvailability() {
+    // Implement your logic here to determine ticket availability
+    this.ticketsAvailable = this.play.ticketsLeft > 0;
   }
 }

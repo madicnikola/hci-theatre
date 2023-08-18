@@ -39,3 +39,9 @@ h2 {
 .play-description button:hover {
     background-color: #0056b3;
 }
+
+/* Component's CSS file or global styles */
+.disabled-button {
+  opacity: 0.6; /* Example: Reduce opacity to visually gray out */
+  cursor: not-allowed; /* Example: Change cursor to indicate unclickable */
+}

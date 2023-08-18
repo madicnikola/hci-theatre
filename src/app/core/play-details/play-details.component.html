@@ -7,7 +7,7 @@
   <div class="play-description">
     <p>{{ play.description }}</p>
     <p>Tickets left: {{ play.ticketsLeft }}</p>
-    <button (click)="buyTicket(play.id)">Buy Ticket</button>
+    <button (click)="buyTicket(play.id)"  [disabled]="!ticketsAvailable" [class.disabled-button]="!ticketsAvailable">Buy Ticket</button>
   </div>
 </div>
 

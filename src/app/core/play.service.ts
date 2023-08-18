@@ -20,7 +20,7 @@ export class PlayService {
             'Pozorišta su sve ono što nam treba u bilo kojoj vremenskoj instanci,' +
             ' pogotovo kada preovladava apatija u našoj svakodnevici.' +
             ' Drama Godine vrana po tekstu i režiji Siniše Kovačevića predstavlja jedno od najnovijih kapitalnih izvedbi na Velikoj sceni beogradskog Narodnog pozorišta.',
-          ticketsLeft: 50
+          ticketsLeft: 1
         },
         {
           id: 1,
