@@ -2,20 +2,22 @@
  <h3 class="table-name">
   Repertoar
 </h3>
-<table class="table table-hover"> 
+<table class="table table-hover">
   <thead>
     <tr>
-      <th> </th>
-      <th (click)="onSortByNameClicked()">Name</th>
-      <th>Description</th>
+      <th class='th-name'> </th>
+      <th (click)="onSortByNameClicked()" class='th-name'>Naziv</th>
+      <th class='th-name'>Opis</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let play of plays" (click)="onPlayClicked(play.id)">
-      <td><img [src]="play.image" width="300" height="350" /></td>
+      <td><img [src]="play.image" width="250" height="300" /></td>
       <td class="td-name">{{ play.name }}</td>
-      <td>{{ play.description }}</td>
+      <td class='td-opis'>{{ play.description.split('.')[0]+'...' }} <button (click)="toggleText()">
+        {{ showFullText ? 'Show Less' : 'Show More' }}
+      </button></td>
       <td *ngIf="isEmployee()" class="cancel">
         <button class="btn btn-danger" (click)="onDeleteClicked($event, play)" >Delete</button>
       </td>

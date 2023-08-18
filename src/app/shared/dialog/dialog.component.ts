@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 export interface DialogData {
   title: string;
@@ -12,7 +12,7 @@ export interface DialogData {
   styleUrls: ['./dialog.component.css'],
 })
 export class DialogComponent implements OnInit {
-  constructor(public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor( public dialogRef: MatDialogRef<DialogComponent>,@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   ngOnInit(): void {}
 

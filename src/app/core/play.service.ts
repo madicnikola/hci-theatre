@@ -59,7 +59,7 @@ export class PlayService {
           surname: 'Jevtic',
           address: 'Vojvode Stepe 1',
           phoneNumber: '060/123789',
-          role: 'EMPLOYEE'
+          role: 'CUSTOMER'
         }
       ];
       localStorage.setItem('users', JSON.stringify(defaultUsers));
